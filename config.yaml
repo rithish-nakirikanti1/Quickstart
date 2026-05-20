@@ -19,9 +19,9 @@ workers:
       adapter:
         name: builtin
   - name: math-worker
-    worker_path: /Users/rithishnakirikanti/Downloads/devops/quickstart/workers/math-worker
+    worker_path: /home/ubuntu/Quickstart/workers/math-worker
   - name: caller-worker
-    worker_path: /Users/rithishnakirikanti/Downloads/devops/quickstart/workers/caller-worker
+    worker_path: /home/ubuntu/Quickstart/workers/caller-worker
   - name: iii-state
     config:
       adapter:
