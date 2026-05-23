@@ -1,0 +1,32 @@
+services:
+
+  iii-engine:
+    image: ubuntu:22.04
+    container_name: iii-engine
+    working_dir: /app
+
+    volumes:
+      - .:/app
+
+    ports:
+      - "3111:3111"
+      - "49134:49134"
+
+    command: >
+      bash -c "
+      apt update &&
+      apt install -y curl jq &&
+      curl -fsSL https://install.iii.dev/iii/main/install.sh | sh &&
+      export PATH=$PATH:/root/.local/bin &&
+      iii --config config.yaml
+      "
+
+  caller-worker:
+    build: ./workers/caller-worker
+    container_name: caller-worker
+
+    environment:
+      - III_ENGINE_URL=ws://iii-engine:49134
+
+    depends_on:
+      - iii-enginecat docker-compose.yml
