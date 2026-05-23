@@ -1,10 +1,35 @@
-# Quickstart
+Internet
+   |
+   v
++-------------------+
+| Public EC2        |
+| API + III Engine  |
+| Port 3111         |
++-------------------+
+          |
+          | private subnet
+          v
++-------------------+
+| Caller Worker     |
++-------------------+
+          |
+          v
++-------------------+
+| Math Worker       |
++-------------------+
 
-A quickstart example project that shows you how to scaffold a cross-language project, compose Python and TypeScript workers, and incrementally add functionality to a live system with zero downtime.
+curl -X POST http://<public-ip>:3111/math/add-two-numbers \
+-H "Content-Type: application/json" \
+-d '{"a":10,"b":20}'
+Response
+{
+  "result": 30
+}
 
-| Worker          | Language   | Function                | Does                                     |
-| --------------- | ---------- | ----------------------- | ---------------------------------------- |
-| `math-worker`   | Python     | `math::add`             | Returns `{ c: a + b }`                   |
-| `caller-worker` | TypeScript | `math::add_two_numbers` | Calls `math::add` and returns the result |
+terraform init
+terraform apply
 
-Continue with the tutorial at: https://iii.dev/docs/quickstart
+ssh ubuntu@<public-ip>
+
+git clone <repo>
+docker compose up -d --build
